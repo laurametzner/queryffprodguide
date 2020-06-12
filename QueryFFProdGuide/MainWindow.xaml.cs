@@ -595,7 +595,7 @@ namespace QueryFFProdGuide
         }
 
         // If an item name appears to be plural, convert it to singular.
-        private string Singular(string in_string)
+        private string Singular(in string in_string)
         {
             string[] plurals = { "ies", "es", "s" };
 
