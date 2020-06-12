@@ -595,7 +595,7 @@ namespace QueryFFProdGuide
         }
 
         // If an item name appears to be plural, convert it to singular.
-        private string Singular(in string in_string)
+        private string Singular(string in_string)
         {
             string[] plurals = { "ies", "es", "s" };
 
@@ -607,7 +607,8 @@ namespace QueryFFProdGuide
                 return in_string.Substring(0, in_string.Length - plurals[0].Length) + "y";
             }
             // Example: Buffaloes
-            else if (in_string.EndsWith(plurals[1]) && Array.IndexOf(vowels, in_string[in_string.Length - plurals[1].Length - 1]) >= 0)
+            else if (   in_string.EndsWith(plurals[1]) 
+                     && Array.IndexOf(vowels, in_string[in_string.Length - plurals[1].Length - 1]) >= 0)
             {
                 return in_string.Substring(0, in_string.Length - plurals[1].Length);
             }
@@ -617,6 +618,11 @@ namespace QueryFFProdGuide
                 return in_string.Substring(0, in_string.Length - plurals[2].Length);
             }
             // Assume it's already singular.
+            // Cookie and cooky are both valid spellings; return cooky so the plural form will work properly.
+            else if (in_string.EndsWith("cookie"))
+            {
+                return in_string.Substring(0, in_string.Length - 2) + "y";
+            }
             else
             {
                 return in_string;
